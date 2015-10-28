@@ -2,7 +2,7 @@
 
 $to_crawl = "";
 $c = array();
-
+$base_url = parse_url($to_crawl , PHP_URL_HOST);
 function get_links($url){
 	global $c;
 	$input = @file_get_contents($url);
@@ -71,5 +71,10 @@ foreach ($c as $page) {
 }
 
 foreach ($c as $page) {
-	echo $page."</br>";
+	if ($base_url == parse_url($page , PHP_URL_HOST) || "www".$base_url == parse_url($page , PHP_URL_HOST)) {
+		echo $page."\n";
+	}
+	
 }
+
+echo count($c)." results found"."\n";
